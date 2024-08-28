@@ -9,7 +9,7 @@ import {
 	Link,
 	Stack,
 } from '@chakra-ui/react';
-import { Form, useNavigate } from 'react-router-dom';
+import { Form } from 'react-router-dom';
 import { FORM_ERRORS, ROUTES } from '@/shared';
 import { useLogin } from 'src/features/auth';
 import { isAxiosError } from 'axios';

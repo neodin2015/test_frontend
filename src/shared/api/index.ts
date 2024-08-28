@@ -1,1 +1,1 @@
-export { instanceAxios } from './instanceAxios';
+export { instanceAxios } from 'src/shared/api/instance-axios';

@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { ENDPOINTS, instanceAxios } from '@/shared';
+import { ENDPOINTS, instanceAxios, QUERY_KEYS } from '@/shared';
 
 interface IRegistrationBody {
 	email: string;
@@ -17,12 +17,12 @@ interface ILogin {
 const login = (body: ILogin) => instanceAxios.post<{token: string}>(ENDPOINTS.LOGIN, body);
 
 export const useLogin = () => useMutation({
-	mutationKey: ['LOGIN'],
+	mutationKey: [QUERY_KEYS.USERS.LOGIN],
 	mutationFn: login,
 });
 
 const registration = (data: IRegistrationBody) => instanceAxios.post<{token: string}>(ENDPOINTS.REGISTER, data);
 export const useRegister = () => useMutation({
-	mutationKey: ['REGISTRATION'],
+	mutationKey: [QUERY_KEYS.USERS.REGISTER],
 	mutationFn: registration,
 });
