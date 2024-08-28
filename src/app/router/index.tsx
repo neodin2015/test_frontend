@@ -1,6 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { AuthLayout, ROUTES } from '@/shared';
 import { PrivateWrapper } from './PrivateWrapper';
+import { LoginPage } from '@/pages/login';
+import { RegisterPage } from '@/pages/register';
+import { MainPage } from '@/pages/main';
+import { PublicWrapper } from './PublicWrapper';
 
 
 export const router = createBrowserRouter(
@@ -11,19 +15,26 @@ export const router = createBrowserRouter(
 			children: [
 				{
 					index: true,
-					element: <>ad</>,
+					element: <MainPage />,
 				},
 			],
 		},
 		{
-			element: <AuthLayout />,
+			element: <PublicWrapper />,
 			children: [
 				{
-					index: true,
-					path: ROUTES.USER.LOGIN,
-				},
-				{
-					path: ROUTES.USER.REGISTER,
+					element: <AuthLayout />,
+					children: [
+						{
+							element: <LoginPage />,
+							index: true,
+							path: ROUTES.USER.LOGIN,
+						},
+						{
+							element: <RegisterPage />,
+							path: ROUTES.USER.REGISTER,
+						},
+					],
 				},
 			],
 		},
