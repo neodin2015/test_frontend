@@ -14,7 +14,7 @@ import { useFormik } from 'formik';
 import { FORM_ERRORS, ROUTES } from '@/shared';
 import { isAxiosError } from 'axios';
 import { emailRegexp, passwordRegexp } from '@/shared/lib/regulars';
-import { useRegister, useLogin } from '@/features/auth';
+import { useRegister } from '@/features/auth';
 import { useAuth } from '@/app/providers/AuthProviders';
 
 interface ISignUpForm {
@@ -26,7 +26,6 @@ interface ISignUpForm {
 export const RegisterForm = () => {
 	const navigate = useNavigate();
 	const { mutateAsync: signUp, error } = useRegister();
-	const { mutateAsync: signIn } = useLogin();
 	const { login } = useAuth();
 	const getError = () => {
 		if (error && isAxiosError(error) && error.response?.status === 401) {

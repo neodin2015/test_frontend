@@ -8,26 +8,18 @@ import {
 	Input,
 	Link,
 	Stack,
-	Text,
 } from '@chakra-ui/react';
 import { Form, useNavigate } from 'react-router-dom';
 import { FORM_ERRORS, ROUTES } from '@/shared';
 import { useLogin } from 'src/features/auth';
 import { isAxiosError } from 'axios';
 import { useFormik } from 'formik';
-import { useEffect } from 'react';
 import { useAuth } from '@/app/providers/AuthProviders';
 
 export const LoginForm = () => {
-	const { mutateAsync: signIn, data, error } = useLogin();
-	const navigate = useNavigate();
+	const { mutateAsync: signIn, error } = useLogin();
 	const { login } = useAuth();
-	useEffect(() => {
-		if (data) {
-			login(data.data.token);
-			navigate('/');
-		}
-	}, [data]);
+
 	const getError = () => {
 		if (error && isAxiosError(error) && error.response?.status === 401) {
 			return 'Неверные данные';
@@ -59,7 +51,8 @@ export const LoginForm = () => {
 		async onSubmit(value, { setSubmitting }) {
 			setSubmitting(true);
 			try {
-				await signIn(value);
+				const data = await signIn(value);
+				login(data.data.token);
 			} catch (e) {
 				console.log(e);
 			} finally {
